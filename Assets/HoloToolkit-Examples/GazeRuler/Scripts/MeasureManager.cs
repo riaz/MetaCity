@@ -136,6 +136,67 @@ public class Point
     public bool IsStart { get; set; }
 }
 
+static public class GDS
+{
+    public static int[][] Array;
+
+    static Dictionary<int, string> _dict = new Dictionary<int, string>
+    {
+        {1, "entries"},
+        {2, "images"},
+        {3, "views"},
+        {4, "files"},
+        {5, "results"},
+        {6, "words"},
+        {7, "definitions"},
+        {8, "items"},
+        {9, "megabytes"},
+        {10, "games"}
+    };
+
+    public static string GetDescription(int id)
+    {
+        // Try to get the result in the static Dictionary
+        string result;
+        if (_dict.TryGetValue(id, out result))
+        {
+            return result;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    public static int getKey(string Value)
+    {
+        if (_dict.ContainsValue(Value))
+        {
+            var ListValueData = new List<string>();
+            var ListKeyData = new List<int>();
+
+            var Values = _dict.Values;
+            var Keys = _dict.Keys;
+
+            foreach (var item in Values)
+            {
+                ListValueData.Add(item);
+            }
+
+            var ValueIndex = ListValueData.IndexOf(Value);
+
+            foreach (var item in Keys)
+            {
+                ListKeyData.Add(item);
+            }
+
+            return ListKeyData[ValueIndex];
+        }
+
+        return -1;
+    }
+}
+
 public class Origin
 {
     public static Vector3 Point { get; set; }
