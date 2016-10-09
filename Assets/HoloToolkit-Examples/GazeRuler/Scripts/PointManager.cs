@@ -29,9 +29,31 @@ public class PointManager : Singleton<PointManager>, IGeometry
 
         //unit is meter
         tip.transform.Translate(Vector3.up * 0.05f);
+        int z = Convert.ToInt32(((hitPoint.z - Origin.Point.z) * 24) / 0.38);
+        int x = Convert.ToInt32(((hitPoint.x - Origin.Point.x) * 24) / 0.38);
         tip.GetComponent<TextMesh>().text = Convert.ToInt32(((hitPoint.z - Origin.Point.z)*24)/0.38)  + " , " + Convert.ToInt32(((hitPoint.x - Origin.Point.x) * 24) / 0.38);
         // Convert.ToInt32(Math.Ceiling(FloatValue));
 
+        if (z < 9 && x < 9)
+        {
+            UIManager.Instance.initiateUI("Commercial", "\nCommercial", hitPoint);
+        }
+        else if (z < 9 && x > 13)
+        {
+            UIManager.Instance.initiateUI("Residential", "\nResidential", hitPoint);
+        }
+        else if (z > 13 && x < 9)
+        {
+            UIManager.Instance.initiateUI("School", "\nSchool", hitPoint);
+        }
+        else if (z > 13 && x > 13)
+        {
+            UIManager.Instance.initiateUI("Natural", "\nNatural", hitPoint);
+        }
+        else
+        {
+            UIManager.Instance.initiateUI("Fountain", "\nFountain", hitPoint);
+        }
 
         var root = new GameObject();
         lastPoint.Root.transform.parent = root.transform;
