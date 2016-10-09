@@ -29,7 +29,7 @@ public class PointManager : Singleton<PointManager>, IGeometry
 
         //unit is meter
         tip.transform.Translate(Vector3.up * 0.05f);
-        tip.GetComponent<TextMesh>().text = ((hitPoint.z - Origin.Point.z)*24)/0.38  + " , " + ((hitPoint.x - Origin.Point.x) * 24) / 0.38;
+        tip.GetComponent<TextMesh>().text = Convert.ToInt32(((hitPoint.z - Origin.Point.z)*24)/0.38)  + " , " + Convert.ToInt32(((hitPoint.x - Origin.Point.x) * 24) / 0.38);
         // Convert.ToInt32(Math.Ceiling(FloatValue));
 
 
