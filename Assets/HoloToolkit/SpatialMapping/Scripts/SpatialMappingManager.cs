@@ -287,5 +287,16 @@ namespace HoloToolkit.Unity
                 }
             }
         }
+
+
+        public void OnDisableMesh()
+        {
+            SpatialMappingManager.Instance.DrawVisualMeshes = false;
+        }
+
+        public void OnEnableMesh()
+        {
+            SpatialMappingManager.Instance.DrawVisualMeshes = true;
+        }
     }
 }

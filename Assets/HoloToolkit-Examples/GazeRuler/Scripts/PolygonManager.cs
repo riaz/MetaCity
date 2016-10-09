@@ -187,7 +187,7 @@ public class PolygonManager : Singleton<PolygonManager>, IGeometry, IPolygonClos
             s += CalculateTriangleArea(ploygon.Points[0], ploygon.Points[i], ploygon.Points[i + 1]);
 
         //This should trigger mesh coloring
-        VertsColor(ploygon.Root);
+        //VertsColor(ploygon.Root);
     
         return 0.5f * Mathf.Abs(s);
     }

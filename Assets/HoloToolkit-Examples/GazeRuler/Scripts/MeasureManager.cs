@@ -156,6 +156,18 @@ public class MeasureManager : Singleton<MeasureManager>
         client.ClosePloygon(LinePrefab, TextPrefab);
     }
 
+    public void OnDisableMesh()
+    {
+        SpatialMappingManager.Instance.DrawVisualMeshes = false;
+    }
+
+    public void OnEnableMesh()
+    {
+        SpatialMappingManager.Instance.DrawVisualMeshes = true;
+    }
+
+
+
     // change measure mode
     public void OnLineMode()
     {
