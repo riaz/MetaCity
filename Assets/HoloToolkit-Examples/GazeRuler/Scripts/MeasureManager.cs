@@ -19,6 +19,7 @@ public class MeasureManager : Singleton<MeasureManager>
     public GameObject ModeTipObject;
     public GameObject TextPrefab;
 
+
     void Start()
     {
         // inti measure mode
@@ -44,6 +45,96 @@ public class MeasureManager : Singleton<MeasureManager>
     public void OnSelect()
     {
         manager.AddPoint(LinePrefab, PointPrefab, TextPrefab);
+    }
+
+    // Global Data Structure
+    
+    static public class GDS
+    {
+        
+        static int[,] arrLegoArray = new int[24,24];
+        public static int[,] LegoArray
+        {
+            get
+            {
+                return GDS.arrLegoArray;
+            }
+        }
+
+        // Assigning the IDs to LegoArray
+        static public void ArrayAssign()
+        {
+            int z, x;
+            int a = 0;
+            for (z = 0; z < 24; z++)
+            {
+                for (x = 0; x < 24; x++)
+                {
+                    LegoArray[z, x] = a;
+                    a++;
+                }
+            }
+        }
+
+        static Dictionary<int, string> _dict = new Dictionary<int, string>
+    {
+        {1, "entries"},
+        {2, "images"},
+        {3, "views"},
+        {4, "files"},
+        {5, "results"},
+        {6, "words"},
+        {7, "definitions"},
+        {8, "items"},
+        {9, "megabytes"},
+        {10, "games"}
+    };
+        public static string GetDescription(int id)
+        {
+            // Try to get the result in the static Dictionary
+            string result;
+            if (_dict.TryGetValue(id, out result))
+            {
+                return result;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public static int getKey(string Value)
+        {
+            if (_dict.ContainsValue(Value))
+            {
+                var ListValueData = new List<string>();
+                var ListKeyData = new List<int>();
+
+                var Values = _dict.Values;
+                var Keys = _dict.Keys;
+
+                foreach (var item in Values)
+                {
+                    ListValueData.Add(item);
+                }
+
+                var ValueIndex = ListValueData.IndexOf(Value);
+
+                foreach (var item in Keys)
+                {
+                    ListKeyData.Add(item);
+                }
+
+                return ListKeyData[ValueIndex];
+            }
+
+            return -1;
+        }
+
+        public static int GetObjID(int z, int x)
+        {
+            return LegoArray[z, x];
+        }
     }
 
     // delete latest line or geometry

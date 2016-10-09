@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using HoloToolkit.Unity;
+using System;
 using System.Collections.Generic;
 
 /// <summary>
@@ -20,15 +21,17 @@ public class PointManager : Singleton<PointManager>, IGeometry
 
         var hitPoint = GazeManager.Instance.HitInfo.point;
 
-        Debug.Log((hitPoint.x  - Origin.Point.x ) + " , " +  (hitPoint.y - Origin.Point.y) + " " + (hitPoint.z - Origin.Point.z));
+        // Debug.Log((hitPoint.x  - Origin.Point.x ) + " , " +  (hitPoint.y - Origin.Point.y) + " " + (hitPoint.z - Origin.Point.z));
 
         var point = (GameObject)Instantiate(PointPrefab, hitPoint, Quaternion.identity);
 
         var tip = (GameObject)Instantiate(TextPrefab, hitPoint, Quaternion.FromToRotation(Vector3.up, GazeManager.Instance.Normal));
-        
+
         //unit is meter
         tip.transform.Translate(Vector3.up * 0.05f);
-        tip.GetComponent<TextMesh>().text = (hitPoint.x - Origin.Point.x) + " , " + (hitPoint.y - Origin.Point.y) + " " + (hitPoint.z - Origin.Point.z);
+        tip.GetComponent<TextMesh>().text = ((hitPoint.z - Origin.Point.z)*24)/0.38  + " , " + ((hitPoint.x - Origin.Point.x) * 24) / 0.38;
+        // Convert.ToInt32(Math.Ceiling(FloatValue));
+
 
         var root = new GameObject();
         lastPoint.Root.transform.parent = root.transform;
